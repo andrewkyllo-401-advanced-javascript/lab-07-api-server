@@ -1,0 +1,45 @@
+const { server } = require('../lib/server');
+const supertest = require('supertest');
+const mockRequest = supertest(server);
+
+describe('Our server.', () => {
+  it('Responds correctly on request to /categories.', () => {
+    return mockRequest
+      .get('/categories')
+      .then(results => {
+        expect(results.status).toBe(200);
+      })
+      .catch(console.error);
+  });
+  it('Responds correctly on request to /products.', () => {
+    return mockRequest
+      .get('/products')
+      .then(results => {
+        expect(results.status).toBe(200);
+      })
+      .catch(console.error);
+  });
+  it('Should modify selected object in /categories', () => {
+    return mockRequest
+      .put('/categories/1')
+      .send()
+  })
+
+
+  it('Responds correctly on delete request to /categories.', () => {
+    return mockRequest
+      .delete('/categories/1')
+      .then(results => {
+        expect(results.body).toEqual({});
+      })
+      .catch(console.error);
+  });
+  it('Responds correctly on delete request to /products.', () => {
+    return mockRequest
+      .delete('/products/1')
+      .then(results => {
+        expect(results.body).toEqual({});
+      })
+      .catch(console.error);
+  });
+});
